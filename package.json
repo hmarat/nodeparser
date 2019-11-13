@@ -1,0 +1,21 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "Node parser for fetching data for kaktus",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js"
+  },
+  "author": "Marat Hakobjanyan",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
+    "chalk": "^3.0.0",
+    "cherio": "^1.0.0-rc.2",
+    "puppeteer": "^2.0.0",
+    "transliteration": "^2.1.7"
+  }
+}
