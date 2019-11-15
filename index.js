@@ -26,7 +26,7 @@ const pages = 2;
                     code: slugify(title)
                 })
             })
-            //console.log(carsItems)
+
             await listItemsHandler(carsItems);
         }
     } catch (err) {
