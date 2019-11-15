@@ -18,7 +18,7 @@ const pages = 2;
 
             $(".firms_title").each((i, header) => {
                 const url = $(header).attr("href");
-                const title = $(header).text().trim().replace('"', "");
+                const title = $(headerclear).text().trim().replace('"', "");
 
                 carsItems.push({
                     title,

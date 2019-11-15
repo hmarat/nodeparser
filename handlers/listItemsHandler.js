@@ -7,8 +7,9 @@ const listItemsHandler = async (data) => {
     try {
         for (const initialData of data) {
             console.log(`Getting data from: ${chalk.green.bold(initialData.url)} `);
-            const detailContent = getPageContent(`https://www.spyur.am${initialData.url}`);
+            const detailContent = await getPageContent(`https://www.spyur.am${initialData.url}`);
             const $ = cherio.load(detailContent);
+            console.log(chalk.blue.bold("Done!"))
         }
     } catch (err) {
         throw err;
