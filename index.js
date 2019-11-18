@@ -14,20 +14,20 @@ const pages = 1;
             const url = `https://www.spyur.am/ru/home/search-${page}/?addres=Arcax`;
             const pageContent = await getPageContent(url);
             const $ = cherio.load(pageContent);
-            const carsItems = [];
+            const firmsItems = [];
 
             $(".firms_title").each((i, header) => {
                 const url = $(header).attr("href");
                 const title = $(header).text().trim().replace('"', "");
 
-                carsItems.push({
+                firmsItems.push({
                     title,
                     url,
                     code: slugify(title)
                 })
             })
-            //console.log(carsItems)
-            await listItemsHandler(carsItems);
+            //console.log(firmsItems)
+            await listItemsHandler(firmsItems);
         }
     } catch (err) {
         console.log(chalk.red("Ann error has occured\n"));
