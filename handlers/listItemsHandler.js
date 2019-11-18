@@ -7,10 +7,10 @@ import fetchCompanyDetailDataHandler from "./fetchCompanyDataHandler"
 const listItemsHandler = async (data) => {
     try {
         for (const initialData of data) {
-            console.log(`Getting data from: ${chalk.green.bold(initialData.url)} `);
+            console.log(`Getting data from: ${chalk.green.bold(initialData.url)}`);
             const detailContent = await getPageContent(`https://www.spyur.am${initialData.url}`);
             const $ = cherio.load(detailContent);
-
+            
             fetchCompanyDetailDataHandler($);
 
             console.log(chalk.blue.bold("Done!"))

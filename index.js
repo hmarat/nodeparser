@@ -6,7 +6,7 @@ import { arrayFromLength } from "./helpers/common"
 import { getPageContent } from "./helpers/puppeteer"
 import listItemsHandler from "./handlers/listItemsHandler"
 
-const pages = 2;
+const pages = 1;
 
 (async () => {
     try {
@@ -26,7 +26,7 @@ const pages = 2;
                     code: slugify(title)
                 })
             })
-
+            //console.log(carsItems)
             await listItemsHandler(carsItems);
         }
     } catch (err) {
