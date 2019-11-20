@@ -35,7 +35,15 @@ const fetchCompanyDataHandler = ($) => {
                             numbers
                         })
                     })
-                    saveDataHandler($(item).contents().filter(function a() { this.nodeType === 3 }).text())
+                    //saveDataHandler($filial($filial(item).contents()[6]).text());
+                    //saveDataHandler($filial(item).contents().length);
+                    const textNodes = $filial(item).contents().filter(function(){
+                        return this.nodeType === 3;
+                    })
+                    console.log($filial(textNodes[0]).text());
+                    console.log($filial(textNodes[1]).text());
+                    console.log($filial(textNodes[2]).text());
+                    console.log($filial(textNodes[3]).text());
                 }
 
             })
