@@ -15,7 +15,7 @@ const fetchCompanyDataHandler = ($) => {
             console.log(chalk.blue(supervisor));
         } else if (type === "addressPhone") {
             $(`ul.contactInfo>li:nth-child(${i + 2})>div`).each((index, item) => { // Get data from every fillial
-                if (index === 4) { // get data only from 1 fillial, for test
+                if (index === 0) { // get data only from 1 fillial, for test
                     const $filial = cherio.load($(item).html());
                     const phoneNumbers = [];
 
@@ -34,17 +34,20 @@ const fetchCompanyDataHandler = ($) => {
                             title: callTitle,
                             numbers
                         })
-                    })
+                    }) // Ending getting phone numbers
                     saveData(phoneNumbers)
                     //saveData($filial($filial(item).contents()[6]).text());
                     //saveData($filial(item).contents().length);
-                    const textNodes = $filial(item).contents().filter(function () {
+                    const textNodes = $filial(item).contents().filter(function (i, j) {
+                        if(this.nodeType === 3)
+                            console.log($filial(j).text())
                         return this.nodeType === 3;
                     })
-                    console.log($filial(textNodes[0]).text());
-                    console.log($filial(textNodes[1]).text());
-                    console.log($filial(textNodes[2]).text());
-                    console.log($filial(textNodes[3]).text());
+                    console.log(textNodes.length)
+                    // console.log($filial(textNodes[0]).text());
+                    // console.log($filial(textNodes[1]).text());
+                    // console.log($filial(textNodes[2]).text());
+                    // console.log($filial(textNodes[3]).text());
                 }
 
             })
