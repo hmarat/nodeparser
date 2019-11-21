@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import cherio from "cherio"
 
-import { filterPhoneTitle, filterPhoneNumberType } from "../helpers/filters"
+import { filterPhoneTitle, filterPhoneNumberType, isSpanOldAddress, isWorkingDays } from "../helpers/filters"
 import { getListInfoType } from "../helpers/common"
 import saveData from "./saver"
 
@@ -19,7 +19,7 @@ const fetchCompanyDataHandler = ($) => {
                     const $filial = cherio.load($(item).html());
                     const phoneNumbers = [];
 
-                    $filial("div:has(a.call)").each((i, header) => { // Picking all numbers of fillial
+                    $filial("div:has(a.call)").each((i, header) => { // Getting all numbers of fillial
                         const callTitle = filterPhoneTitle($filial(header).children()[0].prev.data);
                         const numbers = [];
 
@@ -36,20 +36,35 @@ const fetchCompanyDataHandler = ($) => {
                         })
                     }) // Ending getting phone numbers
                     saveData(phoneNumbers)
-                    //saveData($filial($filial(item).contents()[6]).text());
-                    //saveData($filial(item).contents().length);
-                    const textNodes = $filial(item).contents().filter(function (i, j) {
-                        if(this.nodeType === 3)
-                            console.log($filial(j).text())
-                        return this.nodeType === 3;
-                    })
-                    console.log(textNodes.length)
-                    // console.log($filial(textNodes[0]).text());
-                    // console.log($filial(textNodes[1]).text());
-                    // console.log($filial(textNodes[2]).text());
-                    // console.log($filial(textNodes[3]).text());
-                }
 
+                    //Getting addres of filial
+                    const address = {};
+
+                    const textNodes = $filial(item).contents().filter(function (i, node) {
+                        return this.nodeType === 3 && $filial(node).text().trim().length > 0;
+                    })
+
+                    const oldAddress = $filial("span[title]") && isSpanOldAddress($filial("span[title]").attr("title")) && $filial("span[title]").text().trim();
+
+                    if (textNodes.length === 2) {
+                        address.regionAndCity = $filial(textNodes[0]).text().trim();
+                        address.address = oldAddress ? oldAddress.concat($filial(textNodes[1]).text().trim()) : $filial(textNodes[1]).text().trim();
+                    } else if (textNodes.length === 1) {
+                        const regionAndCity = $filial(textNodes[0]).text().trim();
+                    }
+                    else {
+                        throw new Error("textNodes length is not 0 or 1");
+                    }
+                    console.log(chalk.red(oldAddress), address);
+                    // End getting address of filial
+
+                    //get working days
+                    $filial("div").each((i, div) => {
+                        const text = $filial(div).text().trim();
+                        if (isWorkingDays(text))
+                            console.log(chalk.yellow(text))
+                    })
+                }
             })
         }
     })

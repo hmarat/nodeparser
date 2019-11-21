@@ -12,7 +12,12 @@ const filterPhoneNumberType = item => {
 }
 
 const isWorkingDays = (content) => {
-
+    const workingDaysTemplate = /([а-яА-Я]{2,3} ){1,7}((\d{2}:\d{2}-\d{2}:\d{2})|(К|к)руглосуточно)/;
+    return workingDaysTemplate.exec(content) ? content : null;
 }
 
-export { filterPhoneTitle, filterPhoneNumberType }
+const isSpanOldAddress = spanTitle => {
+    return /Старое название:/.exec(spanTitle) && true;
+}
+
+export { filterPhoneTitle, filterPhoneNumberType, isWorkingDays, isSpanOldAddress }
