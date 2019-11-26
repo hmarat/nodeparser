@@ -11,7 +11,7 @@ const pages = 1;
 (async () => {
     try {
         for (const page of arrayFromLength(pages)) {
-            const url = `https://www.spyur.am/ru/home/search-${page}/?addres=Arcax`;
+            const url = `https://www.spyur.am/ru/home/search-${2}/?addres=Arcax`;
             const pageContent = await getPageContent(url);
             const $ = cherio.load(pageContent);
             const firmsItems = [];
@@ -26,7 +26,7 @@ const pages = 1;
                     code: slugify(title)
                 })
             })
-            //console.log(firmsItems)
+
             await listItemsHandler(firmsItems);
         }
     } catch (err) {

@@ -8,7 +8,7 @@ const filterPhoneTitle = (title) => {
 const filterPhoneNumberType = item => {
     const type = item ? item.data.trim() : null;
     const typeTemplate = /\([а-яА-Я ]+.?\)/;
-    
+
     return typeTemplate.exec(type) ? type : null;
 }
 
@@ -23,11 +23,17 @@ const isSpanOldAddress = spanTitle => {
     return /Старое название:/.exec(spanTitle) && true;
 }
 
-const isRegion = text =>{
+const isRegion = text => {
     const regionTemplate = /\(.+\)/g;
     const matchText = text.match(regionTemplate);
-    
+
     return matchText && matchText.length && matchText[0].length === text.length;
 }
 
-export { filterPhoneTitle, filterPhoneNumberType, getWorkingDays, isSpanOldAddress, isRegion }
+const isFilialFromArcax = (regionAndCity) => {
+    const arcaxRegionTemplate = /Армения, Арцах/g;
+
+    return !!regionAndCity.match(arcaxRegionTemplate);
+}
+
+export { filterPhoneTitle, filterPhoneNumberType, getWorkingDays, isSpanOldAddress, isRegion, isFilialFromArcax }
