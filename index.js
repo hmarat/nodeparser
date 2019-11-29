@@ -6,12 +6,12 @@ import { arrayFromLength } from "./helpers/common"
 import { getPageContent } from "./helpers/puppeteer"
 import listItemsHandler from "./handlers/listItemsHandler"
 
-const pages = 1;
+const pages = 34;
 
 (async () => {
     try {
         for (const page of arrayFromLength(pages)) {
-            const url = `https://www.spyur.am/ru/home/search-${2}/?addres=Arcax`;
+            const url = `https://www.spyur.am/ru/home/search-${page}/?addres=Arcax`;
             const pageContent = await getPageContent(url);
             const $ = cherio.load(pageContent);
             const firmsItems = [];

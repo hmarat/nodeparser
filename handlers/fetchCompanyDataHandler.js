@@ -105,6 +105,15 @@ const fetchCompanyDataHandler = ($) => {
         }
         else if (type === "otherPhoneContacts") {
             const otherPhoneContacts = $(`ul.contactInfo>li:nth-child(${i + 2})>div`).text().trim();
+            $(`ul.contactInfo>li:nth-child(${i + 2})>div`).each((i, item) => {
+                const otherPhoneContactsTemplate = /([а-яА-Я\- ]+:)?? *((\+\d{3}-\d{2}-\d{6})|(.+\(|$))( *.+\))?/g;
+                const numbers = $(item).text().replace("•", "").split(",");
+                const matches = numbers.map(numberString => {
+                    const number = numberString.trim().match(otherPhoneContactsTemplate);
+                    console.log(number);
+                })
+                //const numbersTitle =
+            })
             company.otherPhoneContacts = otherPhoneContacts;
         }
         else if (type === "webSite") {
