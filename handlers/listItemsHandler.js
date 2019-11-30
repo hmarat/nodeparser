@@ -19,6 +19,7 @@ const listItemsHandler = async (data) => {
             //console.log(chalk.blue.bold("Done!"))
         }
 
+        return companies;
         saveData(companies);
     } catch (err) {
         throw err;

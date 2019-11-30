@@ -10,6 +10,7 @@ const pages = 34;
 
 (async () => {
     try {
+        const companies = [];
         for (const page of arrayFromLength(pages)) {
             const url = `https://www.spyur.am/ru/home/search-${page}/?addres=Arcax`;
             const pageContent = await getPageContent(url);
@@ -27,7 +28,8 @@ const pages = 34;
                 })
             })
 
-            await listItemsHandler(firmsItems);
+            //const companies = await listItemsHandler(firmsItems);
+            companies.push(await listItemsHandler(firmsItems))
         }
     } catch (err) {
         console.log(chalk.red("Ann error has occured\n"));
