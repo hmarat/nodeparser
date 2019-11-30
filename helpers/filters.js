@@ -13,9 +13,9 @@ const filterPhoneNumberType = item => {
 }
 
 const filterOtherPhoneNumberType = type => {
-    const template = /\(?([а-яА-Яa-zA-Z])\)/;
+    const template = /\(?([а-яА-Яa-zA-Z.]+)\)/;
     const match = type && type.match(template);
-
+    
     return match && match[1];
 }
 

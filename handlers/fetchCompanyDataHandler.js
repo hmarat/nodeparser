@@ -105,6 +105,7 @@ const fetchCompanyDataHandler = ($) => {
         }
         else if (type === "otherPhoneContacts") {
             const otherPhoneContacts = $(`ul.contactInfo>li:nth-child(${i + 2})>div`).text().trim();
+            const otherPhoneNumbers = [];
             $(`ul.contactInfo>li:nth-child(${i + 2})>div`).each((i, item) => {
                 const otherPhoneContactsTemplate = /([а-яА-Я\- ]+:)?? *((\+\d{3}-\d{2}-\d{6})|(.+\(|$))( *.+\))?/;
                 const strNumbers = $(item).text().replace("•", "").split(",");
@@ -117,11 +118,9 @@ const fetchCompanyDataHandler = ($) => {
                     number: numberMatch[2],
                     type: numberMatch[5]
                 }))
-                console.log(chalk.yellow($(item).text()));
-                console.log(`title: ${numbersTitle}`);
-                console.log(numbers)
+                otherPhoneNumbers.push({title: numbersTitle, numbers})
             })
-            company.otherPhoneContacts = otherPhoneContacts;
+            company.otherPhoneContacts = otherPhoneNumbers;
         }
         else if (type === "webSite") {
             const webSite = $(`ul.contactInfo>li:nth-child(${i + 2}) a[target="_blank"]`).attr("href");
