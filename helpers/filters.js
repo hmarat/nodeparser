@@ -12,6 +12,13 @@ const filterPhoneNumberType = item => {
     return typeTemplate.exec(type) ? type : null;
 }
 
+const filterOtherPhoneNumberType = type => {
+    const template = /\(?([а-яА-Яa-zA-Z])\)/;
+    const match = type && type.match(template);
+
+    return match && match[1];
+}
+
 const getWorkingDays = (content) => {
     const workingDaysTemplate = /([а-яА-Я]{2,3} ){1,7}((\d{2}:\d{2}-\d{2}:\d{2})|(К|к)руглосуточно)/g;
     const workingDaysRules = content.match(workingDaysTemplate);
@@ -36,4 +43,9 @@ const isFilialFromArcax = (regionAndCity) => {
     return !!regionAndCity.match(arcaxRegionTemplate);
 }
 
-export { filterPhoneTitle, filterPhoneNumberType, getWorkingDays, isSpanOldAddress, isRegion, isFilialFromArcax }
+const filterOtherPhoneNumber = numberObj =>({
+    number: numberObj.number[numberObj.number.length - 1] === "(" ? numberObj.number.slice(0, numberObj.number.length - 1).trim() : numberObj.number,
+    type: filterOtherPhoneNumberType(numberObj.type)
+})
+
+export { filterPhoneTitle, filterPhoneNumberType, getWorkingDays, isSpanOldAddress, isRegion, isFilialFromArcax, filterOtherPhoneNumber }

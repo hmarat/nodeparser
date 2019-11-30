@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import cherio from "cherio"
 
-import { filterPhoneTitle, filterPhoneNumberType, isSpanOldAddress, getWorkingDays, isRegion, isFilialFromArcax } from "../helpers/filters"
+import { filterPhoneTitle, filterPhoneNumberType, isSpanOldAddress, getWorkingDays, isRegion, isFilialFromArcax, filterOtherPhoneNumber } from "../helpers/filters"
 import { getListInfoType } from "../helpers/common"
 
 const fetchCompanyDataHandler = ($) => {
@@ -112,8 +112,8 @@ const fetchCompanyDataHandler = ($) => {
                     const numberMatch = numberString.trim().match(otherPhoneContactsTemplate);   
                     return numberMatch;
                 })
-                const numbersTitle = matches[0][1];
-                const numbers = matches.map(numberMatch => ({
+                const numbersTitle = filterPhoneTitle(matches[0][1]);
+                const numbers = matches.map(numberMatch => filterOtherPhoneNumber({
                     number: numberMatch[2],
                     type: numberMatch[5]
                 }))
