@@ -106,13 +106,20 @@ const fetchCompanyDataHandler = ($) => {
         else if (type === "otherPhoneContacts") {
             const otherPhoneContacts = $(`ul.contactInfo>li:nth-child(${i + 2})>div`).text().trim();
             $(`ul.contactInfo>li:nth-child(${i + 2})>div`).each((i, item) => {
-                const otherPhoneContactsTemplate = /([а-яА-Я\- ]+:)?? *((\+\d{3}-\d{2}-\d{6})|(.+\(|$))( *.+\))?/g;
-                const numbers = $(item).text().replace("•", "").split(",");
-                const matches = numbers.map(numberString => {
-                    const number = numberString.trim().match(otherPhoneContactsTemplate);
-                    console.log(number);
+                const otherPhoneContactsTemplate = /([а-яА-Я\- ]+:)?? *((\+\d{3}-\d{2}-\d{6})|(.+\(|$))( *.+\))?/;
+                const strNumbers = $(item).text().replace("•", "").split(",");
+                const matches = strNumbers.map(numberString => {
+                    const numberMatch = numberString.trim().match(otherPhoneContactsTemplate);   
+                    return numberMatch;
                 })
-                //const numbersTitle =
+                const numbersTitle = matches[0][1];
+                const numbers = matches.map(numberMatch => ({
+                    number: numberMatch[2],
+                    type: numberMatch[5]
+                }))
+                console.log(chalk.yellow($(item).text()));
+                console.log(`title: ${numbersTitle}`);
+                console.log(numbers)
             })
             company.otherPhoneContacts = otherPhoneContacts;
         }
