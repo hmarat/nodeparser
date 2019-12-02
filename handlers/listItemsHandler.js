@@ -16,6 +16,7 @@ const listItemsHandler = async (data) => {
             const company = fetchCompanyDetailDataHandler($);
 
             companies.push(company);
+            saveData({type: undefined})
             //console.log(chalk.blue.bold("Done!"))
         }
 

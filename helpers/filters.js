@@ -16,7 +16,7 @@ const filterOtherPhoneNumberType = type => {
     const template = /\(?([а-яА-Яa-zA-Z.]+)\)/;
     const match = type && type.match(template);
     
-    return match && match[1];
+    return match ? match[1] : null;
 }
 
 const getWorkingDays = (content) => {
